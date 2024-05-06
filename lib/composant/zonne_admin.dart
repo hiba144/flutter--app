@@ -52,10 +52,32 @@ class Welcomeadmin extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('ajouter un admin'),
+              onTap: () {
+                Navigator.pushNamed(context, '/ajout_admin');
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.edit),
               title: Text('Mettre à jour l\'utilisateur'),
               onTap: () {
                 Navigator.pushNamed(context, '/update');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons
+                  .check_circle_rounded), // Use check_circle_rounded instead of Icons.edit
+              title: Text('Liste des utilisateurs'),
+              onTap: () {
+                Navigator.pushNamed(context, '/lutlil');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.check_circle_rounded),
+              title: Text('listes des liens'),
+              onTap: () {
+                Navigator.pushNamed(context, '/llien');
               },
             ),
             ListTile(

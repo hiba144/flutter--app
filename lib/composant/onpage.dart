@@ -20,7 +20,7 @@ class onpage extends StatelessWidget {
                 Navigator.pushNamed(context, '/authentication');
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.teal, // Couleur turquoise
+                backgroundColor: Colors.teal, // Couleur turquoise
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
@@ -35,7 +35,7 @@ class onpage extends StatelessWidget {
                 Navigator.pushNamed(context, '/authenc');
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.pinkAccent, // Couleur rose fuchsia
+                backgroundColor: Colors.pinkAccent, // Couleur rose fuchsia
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
@@ -50,7 +50,7 @@ class onpage extends StatelessWidget {
                 Navigator.pushNamed(context, '/contactez-nous');
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.pink, // Couleur rose fuchsia
+                backgroundColor: Colors.pink, // Couleur rose fuchsia
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),

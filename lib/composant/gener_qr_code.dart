@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:qr_flutter/qr_flutter.dart';
 
 class genere_qr_code extends StatefulWidget {
   @override
-  _QRCodeScreenState createState() => _QRCodeScreenState();
+  _GenereQRCodeState createState() => _GenereQRCodeState();
 }
 
-class _QRCodeScreenState extends State<genere_qr_code> {
+class _GenereQRCodeState extends State<genere_qr_code> {
   late String _url; // Lien URL pour le code QR
 
   @override
@@ -15,29 +18,65 @@ class _QRCodeScreenState extends State<genere_qr_code> {
     _url = ''; // Initialiser avec une chaîne vide
   }
 
+  // Méthode pour envoyer le lien au backend
+  Future<void> _enregistrerLien(String url) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.16.1:3000/lien/addlien'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{'url': url}),
+      );
+
+      if (response.statusCode == 201) {
+        // L'enregistrement a réussi
+        print('Lien enregistré avec succès');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Lien enregistré avec succès'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } else {
+        // L'enregistrement a échoué
+        print(
+            'Erreur lors de l\'enregistrement du lien: ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                'Erreur lors de l\'enregistrement du lien: ${response.statusCode}'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (error) {
+      print('Erreur: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erreur: $error'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // Ajoutez votre logique ici pour contrôler le comportement lors du retour en arrière
-        // Par exemple, vous pouvez vérifier si _url est vide ou non
-        // Si _url est vide, vous pouvez permettre le retour, sinon vous pouvez afficher une boîte de dialogue pour confirmer le retour
-        return true; // Retourne true pour permettre le retour en arrière
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text('QR Code Generator'),
-          backgroundColor: Colors.pink,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context)
-                  .pop(); // Retour en arrière lorsque l'icône est cliquée
-            },
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('QR Code Generator'),
+        backgroundColor: Colors.pink,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
-        body: Center(
+      ),
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -61,20 +100,29 @@ class _QRCodeScreenState extends State<genere_qr_code> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      _url =
-                          value; // Mettre à jour l'URL lorsque l'utilisateur saisit du texte
+                      _url = value;
                     });
                   },
                 ),
               ),
               SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Ajouter votre logique pour enregistrer le lien ou la note générée ici
-                  // Par exemple, vous pouvez utiliser un package de gestion des données pour enregistrer le lien ou la note dans un fichier ou une base de données
-                  // Vous pouvez également afficher une boîte de dialogue pour confirmer que le lien ou la note a été enregistré avec succès
-                },
-                child: Text('Enregistrer'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _enregistrerLien(_url);
+                    },
+                    child: Text('Enregistrer'),
+                  ),
+                  SizedBox(width: 20.0), // Espacement entre les boutons
+                  ElevatedButton(
+                    onPressed: () {
+                      // Ajoutez ici la logique pour le bouton imprimer
+                    },
+                    child: Text('Imprimer'),
+                  ),
+                ],
               ),
             ],
           ),
