@@ -81,6 +81,13 @@ class Welcomeadmin extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(Icons.check_circle_rounded),
+              title: Text('Ajouter_Video'),
+              onTap: () {
+                Navigator.pushNamed(context, '/video');
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.logout),
               title: Text('Déconnexion'),
               onTap: () {

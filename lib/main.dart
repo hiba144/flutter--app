@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'composant/admin_registre.dart';
 import 'composant/ajout_user.dart';
+import 'composant/ajouter_video.dart';
 import 'composant/authadmin.dart';
 import 'composant/authentication.dart';
 import 'composant/contactez_nous.dart';
@@ -19,20 +20,18 @@ void main() {
     routes: {
       '/': (context) => onpage(),
       '/authentication': (context) => authentication(),
-      '/authenc': (context) =>
-          Authen(), //hethy f authadminclass class\ authen/  extends StatelessWidget {
-      // //hethi f page onpage:   Navigator.pushNamed(context, '/authenc');
-
-      '/welcome': (context) => lire_qr_code(),
+      '/authenc': (context) => Authen(),
+      '/welcome': (context) => LireQRCodePage(),
       '/hello': (context) => Welcomeadmin(),
       '/genere': (context) => genere_qr_code(),
-      '/lire': (context) => lire_qr_code(),
+      '/lire': (context) => LireQRCodePage(),
       '/profil': (context) => ProfilePage(),
       '/update': (context) => UpdatePage(),
       '/dec': (context) => onpage(),
       '/contactez-nous': (context) => ContactPage(),
       '/ajout_admin': (context) => AjoutAdmin(),
       '/lutlil': (context) => liste_user(),
+      '/video': (context) => VideoQrCode(),
       '/llien': (context) => liste_lien()
     },
   ));
